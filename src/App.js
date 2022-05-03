@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from "react";
+import {Container,Row, Spinner} from "react-bootstrap"
+// import LazyComponent from "./components/LazyComponent"
+const LazyComponent = lazy(() => import("./components/LazyComponent"));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Row className="justify-content-center">
+      <h2>App component will call a LazyComponent via Suspense</h2>
+      <pre>You might want to change to slow 3g to see the magic happens</pre>
+      <Suspense
+        fallback={
+          <Spinner animation="border" role="status">
+            
+          </Spinner>
+        }
+      >
+        <LazyComponent />
+      </Suspense>
+      </Row>
+    </Container>
   );
 }
 
